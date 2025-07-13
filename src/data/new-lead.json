@@ -1,0 +1,48 @@
+{
+    "Lead_Information": {
+        "SalutationOptions": ["--None--", "Mr.", "Ms.", "Mrs.", "Dr.", "Prof."],
+        "Salutation": "Ms.",
+        "FirstName": "first",
+        "LastName": "name", 
+        "Company": "Company",
+        "Title": "",
+        "AnnualRevenue": "",
+        "Phone": "",
+        "Mobile": "",
+        "Email": "",
+        "Website": "",
+        "Fax": "",
+        "LeadSourceOptions": ["--None--", "Web", "Phone Inquiry", "Partner Referral", "Purchased List", "Other"],
+        "LeadSource": "Phone Inquiry",
+        "IndustryOptions": [
+            "--None--", "Agriculture", "Apparel", "Banking", "Biotechnology", "Chemicals", "Communications",
+            "Construction", "Consulting", "Education", "Electronics", "Energy", "Engineering", "Entertainment",
+            "Environmental", "Finance", "Food & Beverage", "Government", "Healthcare", "Hospitality", "Insurance",
+            "Machinery", "Manufacturing", "Media", "Not For Profit", "Recreation", "Retail", "Shipping", "Technology",
+            "Telecommunications", "Transportation", "Utilities", "Other"
+        ],
+        "Industry": "Government",
+        "LeadStatusOptions": ["--None--", "Open - Not Contacted", "Working - Contacted", "Closed - Converted", "Closed - Not Converted"],
+        "LeadStatus": "Open - Not Contacted",
+        "RatingOptions": ["--None--", "Hot", "Warm", "Cold"],
+        "Rating": "--None--",
+        "NumberOfEmployees": "4"
+    },
+    "Additional_Information": {
+        "ProductInterestOptions": ["--None--", "GC1000 series", "GC5000 series", "GC3000 series"],
+        "ProductInterest": "--None--",
+        "CurrentGenerators": "GUN",
+        "SICCode": "O98978",
+        "PrimaryOptions": ["--None--", "No", "Yes"],
+        "Primary": "--None--",
+        "NumberofLocations": "4"
+    },
+    "Address_Information": {
+        "street": "523",
+        "city": "California",
+        "state": "CA",
+        "zipCode": "9104",
+        "country": "US"
+    },
+    "Description": "Madhu description"
+}

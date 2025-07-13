@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import SFHomepage from './SFHomepage';
+import Sales from './Sales';
 
 export default class SFLoginpage {
 
@@ -7,21 +8,23 @@ export default class SFLoginpage {
     private readonly passwordInput = '#password';
     private readonly loginButton = '#Login';
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
+
+    /**
+     * Logs into Salesforce using the provided username and password.
+     * @param username - The Salesforce username.
+     * @param password - The Salesforce password.
+     * @returns Promise<void>
+     */
+    async sfLogin(username: string, password: string) {
+        await this.page.fill(this.usernameInput, username);
+        await this.page.fill(this.passwordInput, password);
+        await this.page.click(this.loginButton);
+    }
 
     async navigatetoLoginPage() {
         // Navigate to the Salesforce login page
         await this.page.goto('/');
+        console.log('Navigated to Salesforce login page.');
     }
-    
-    async sfLogin(username: string, password: string) {
-        // Fill in the login form and submit
-        await this.page.fill(this.usernameInput, username);
-        await this.page.fill(this.passwordInput, password);
-        // Wait for the login button to be visible and then click it
-        await this.page.click(this.loginButton, {timeout: 10000});
-        //const homepage = new SFHomepage(this.page);
-        //return homepage;
-        
-    }    
 }

@@ -7,12 +7,16 @@ import { defineConfig, devices } from '@playwright/test';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
+//require('dotenv').config({ path: require('path').resolve(__dirname, '.env') });
+
+require('dotenv').config({ path: `${__dirname}//src//config//.env`});
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
   testDir: './src/tests',
+  timeout: 60000, // Maximum time one test can run for
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -31,13 +35,20 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     screenshot: 'on',
+     launchOptions: {
+      // 1
+      args: ["--start-maximized"],
+    },
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+            viewport: null,
+       // ...devices['Desktop Chrome'] 
+      },
     },
 
     {
