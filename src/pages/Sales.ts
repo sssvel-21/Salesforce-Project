@@ -152,7 +152,7 @@ export default class Sales {
             }
             console.log(`Lead created successfully, Lead Name: ${leadName}`);
         } catch (error) {
-            console.error('Failed to verify lead creation:', error);
+            console.error('Failed to verify opportunity creation:', error);
         }
     }
 
@@ -191,7 +191,7 @@ export default class Sales {
 
             //Additional Information
             await this.form.fillTextByLabel('Order Number', new_opportunity.Additional_Information.OrderNumber__c, newForm);
-            await this.form.fillTextByLabel('Main Competitor(s)', new_opportunity.Additional_Information.CurrentGenerators__c, newForm);
+            await this.form.fillTextByLabel('Main Competitor(s)', new_opportunity.Additional_Information.MainCompetitors__c, newForm);
             await this.form.fillTextByLabel('Current Generator(s)', new_opportunity.Additional_Information.CurrentGenerators__c, newForm);
             await this.form.selectValueFromDropdown('Delivery/Installation Status', new_opportunity.Additional_Information.DeliveryInstallationStatus__c, newForm);
             await this.form.fillTextByLabel('Tracking Number', new_opportunity.Additional_Information.TrackingNumber__c, newForm);
@@ -211,11 +211,11 @@ export default class Sales {
             //console.log(await successMessage);
             const optyName = await this.page.locator("lightning-formatted-text[slot='primaryField']").textContent();
             if (!optyName) {
-                throw new Error('Lead was not created successfully');
+                throw new Error('Opportunity was not created successfully');
             }
-            console.log(`Lead created successfully, Opportunity Name: ${optyName}`);
+            console.log(`Opportunity created successfully, Opportunity Name: ${optyName}`);
         } catch (error) {
-            console.error('Failed to verify lead creation:', error);
+            console.error('Failed to verify opportunity creation:', error);
         }
         
     }

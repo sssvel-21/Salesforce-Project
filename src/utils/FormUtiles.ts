@@ -9,15 +9,15 @@ export class FormUtils {
         const parentLocator = parent || this.page;
         if(value == true){
             await parentLocator.getByRole('checkbox', { name: fieldName}).check();
-        }else if(value == false|| value == null){
+        }else if(value == false || value == null){
             await parentLocator.getByRole('checkbox', { name: fieldName}).uncheck();
-        }
     }
+}
 
     async selectFromLookUp(fieldName: string, value: string, n: number , parent: Locator){
         const parentLocator = parent || this.page;
         await parentLocator.getByLabel(fieldName,{ exact: true } ).fill(value);
-        await parentLocator.getByLabel(fieldName,{ exact: true } ).press('Enter')
+        await parentLocator.getByLabel(fieldName,{ exact: true } ).press('Enter');
         await this.page.waitForTimeout(1000);
          await this.page.locator("//lightning-base-combobox-item[@data-value='actionAdvancedSearch']").nth(n).click();
         await this.page.getByRole('gridcell', { name: 'Select Item 1' }).locator('span').nth(1).click();
@@ -53,8 +53,5 @@ export class FormUtils {
             const errordialogText = await errordialog.textContent();
         return errordialogText ? errordialogText.trim() : null;
     }
-
-    
-
-}
+    }
 }
