@@ -1,23 +1,25 @@
-import { expect, Page } from "@playwright/test";
-import tData from "../data/new-lead.json";
-import tDataConvert from "../data/convert-lead.json";
+import { expect, Locator, Page } from "@playwright/test";
+import new_lead from "../data/new-lead.json";
+import convert_lead from "../data/convert-lead.json";
+import new_opportunity from "../data/new-opportunity.json";
 import { FormUtils } from "../utils/FormUtiles";
-import { TIMEOUT } from "dns";
 
 export default class Sales {
     private form: FormUtils;
 
     constructor(private page: Page) {
         this.form = new FormUtils(page);
+        
     }
+    
 
     async selectLead() {
         try {
-            if (tDataConvert.Name && tDataConvert.Name !== "") {
-                const leadLocator = this.page.getByRole('link', { name: tDataConvert.Name });
+            if (convert_lead.Name && convert_lead.Name !== "") {
+                const leadLocator : Locator = this.page.getByRole('link', { name: convert_lead.Name });
                 await this.page.waitForTimeout(1000);
                 await leadLocator.click({timeout: 2000});
-                console.log(`Selected lead with name: ${tDataConvert.Name}`);
+                console.log(`Selected lead with name: ${convert_lead.Name}`);
             } else {
                 await this.page.locator('tbody tr th').locator('a').first().click();
                 console.log('Selected the first lead in the table.');
@@ -29,8 +31,8 @@ export default class Sales {
 
     async convertLead() {
         try {
-            if (tDataConvert.ConvertStatus == 'Converted') {
-                await this.page.getByRole('option', { name: tDataConvert.ConvertStatus, exact: true }).click();
+            if (convert_lead.ConvertStatus == 'Converted') {
+                await this.page.getByRole('option', { name: convert_lead.ConvertStatus, exact: true }).click();
                 await this.page.waitForTimeout(1000);
                 await this.page.getByText('Select Converted Status', { exact: true }).click();
                 await this.page.waitForTimeout(1000);
@@ -46,9 +48,9 @@ export default class Sales {
                 }
                 console.log('Convert button clicked for lead conversion.');
             } else {
-                await this.page.getByRole('option', { name: tDataConvert.ConvertStatus , exact: true }).click();
+                await this.page.getByRole('option', { name: convert_lead.ConvertStatus , exact: true }).click();
                 await this.page.getByText('Mark as Current Status', { exact: true }).click();
-                console.log(`Lead marked as current status: ${tDataConvert.ConvertStatus}`);
+                console.log(`Lead marked as current status: ${convert_lead.ConvertStatus}`);
             }
         } catch (error) {
             console.error('Failed to convert lead:', error);
@@ -57,7 +59,7 @@ export default class Sales {
 
     async verifyLeadConverted() {
         try {
-            if (tDataConvert.ConvertStatus == 'Converted') {
+            if (convert_lead.ConvertStatus == 'Converted') {
                 const Convertedmessage = await this.page.locator("//div[@class = 'header']//h2").textContent();
                 const products = this.page.locator("//div[@class='containerBody']//h3");
                 await products.first().waitFor({ state: 'visible' });
@@ -67,7 +69,7 @@ export default class Sales {
                 const message = this.page.locator(".slds-theme--success");
                 await message.waitFor({ state: 'visible' });
                 const toastMessage = await  message.textContent();
-                console.log(`${toastMessage}. Lead is marked as ${tDataConvert.ConvertStatus}`);
+                console.log(`Lead is marked as ${convert_lead.ConvertStatus}`);
             }
         } catch (error) {
             console.error('Failed to verify lead conversion:', error);
@@ -96,45 +98,44 @@ export default class Sales {
 
     async fillLeadForm() {
         try {
-            const newLead = this.page.locator("//div[@class='record-layout-container']");
-            await newLead.waitFor({ state: 'visible' });
+            const newForm = this.page.locator("//div[@class='record-layout-container']");
+            await newForm.waitFor({ state: 'visible' });
 
             //Lead information
-            await this.form.selectValueFromDropdown('Salutation', tData.Lead_Information.Salutation, newLead); //Salutation
-            await this.form.fillTextByLabel('First Name', tData.Lead_Information.FirstName, newLead); //First_Name
-            await this.form.fillTextByLabel('*Last Name', tData.Lead_Information.LastName, newLead); //Last_Name
-            await this.form.fillTextByLabel('*Company', tData.Lead_Information.Company, newLead); //Company
-            await this.form.fillTextByLabel('Title', tData.Lead_Information.Title, newLead); //Title
-            await this.form.selectValueFromDropdown('Lead Source', tData.Lead_Information.LeadSource, newLead); //Lead source
-            await this.form.selectValueFromDropdown('Industry', tData.Lead_Information.Industry, newLead); //Industry
-            await this.form.selectValueFromDropdown('Rating', tData.Lead_Information.Rating, newLead); //Rating
-            await this.form.fillTextByLabel('Annual Revenue', tData.Lead_Information.AnnualRevenue, newLead);
-            await this.form.fillTextByLabel('Phone', tData.Lead_Information.Phone, newLead);//Phone
-            await this.form.fillTextByLabel('Mobile', tData.Lead_Information.Mobile, newLead);//MobilePhone
-            await this.form.fillTextByLabel('Fax', tData.Lead_Information.Fax, newLead);//Fax
-            await this.form.fillTextByLabel('Email', tData.Lead_Information.Email, newLead);//Email
-            await this.form.fillTextByLabel('Website', tData.Lead_Information.Website, newLead);//Website
-            await this.form.selectValueFromDropdown('Lead Status', tData.Lead_Information.LeadStatus, newLead); //Lead Status
-            await this.form.fillTextByLabel('No. of Employees', tData.Lead_Information.NumberOfEmployees, newLead);//NumberOfEmployees            
+            await this.form.selectValueFromDropdown('Salutation', new_lead.Lead_Information.Salutation, newForm); //Salutation
+            await this.form.fillTextByLabel('First Name', new_lead.Lead_Information.FirstName, newForm); //First_Name
+            await this.form.fillTextByLabel('*Last Name', new_lead.Lead_Information.LastName, newForm); //Last_Name
+            await this.form.fillTextByLabel('*Company', new_lead.Lead_Information.Company, newForm); //Company
+            await this.form.fillTextByLabel('Title', new_lead.Lead_Information.Title, newForm); //Title
+            await this.form.selectValueFromDropdown('Lead Source', new_lead.Lead_Information.LeadSource, newForm); //Lead source
+            await this.form.selectValueFromDropdown('Industry', new_lead.Lead_Information.Industry, newForm); //Industry
+            await this.form.selectValueFromDropdown('Rating', new_lead.Lead_Information.Rating, newForm); //Rating
+            await this.form.fillTextByLabel('Annual Revenue', new_lead.Lead_Information.AnnualRevenue, newForm);
+            await this.form.fillTextByLabel('Phone', new_lead.Lead_Information.Phone, newForm);//Phone
+            await this.form.fillTextByLabel('Mobile', new_lead.Lead_Information.Mobile, newForm);//MobilePhone
+            await this.form.fillTextByLabel('Fax', new_lead.Lead_Information.Fax, newForm);//Fax
+            await this.form.fillTextByLabel('Email', new_lead.Lead_Information.Email, newForm);//Email
+            await this.form.fillTextByLabel('Website', new_lead.Lead_Information.Website, newForm);//Website
+            await this.form.selectValueFromDropdown('Lead Status', new_lead.Lead_Information.LeadStatus, newForm); //Lead Status
+            await this.form.fillTextByLabel('No. of Employees', new_lead.Lead_Information.NumberOfEmployees, newForm);//NumberOfEmployees            
             //Address Information
-            await this.form.fillTextByLabel('Street', tData.Address_Information.street, newLead);//street
-            await this.form.fillTextByLabel('City', tData.Address_Information.city, newLead);//city
-            await this.form.fillTextByLabel('Zip/Postal Code', tData.Address_Information.zipCode, newLead);//zip_Code
-            await this.form.fillTextByLabel('State/Province', tData.Address_Information.state, newLead);//state
-            await this.form.fillTextByLabel('Country', tData.Address_Information.country, newLead);//country
+            await this.form.fillTextByLabel('Street', new_lead.Address_Information.street, newForm);//street
+            await this.form.fillTextByLabel('City', new_lead.Address_Information.city, newForm);//city
+            await this.form.fillTextByLabel('Zip/Postal Code', new_lead.Address_Information.zipCode, newForm);//zip_Code
+            await this.form.fillTextByLabel('State/Province', new_lead.Address_Information.state, newForm);//state
+            await this.form.fillTextByLabel('Country', new_lead.Address_Information.country, newForm);//country
 
             //Additional information
-            await this.form.selectValueFromDropdown('Product Interest', tData.Additional_Information.ProductInterest, newLead); //Product Interest
-            await this.form.fillTextByLabel('Current Generator(s)', tData.Additional_Information.CurrentGenerators, newLead); //CurrentGenerators__c
-            await this.form.fillTextByLabel('SIC Code', tData.Additional_Information.SICCode, newLead); //SICCode__c
-            await this.form.selectValueFromDropdown('Primary', tData.Additional_Information.Primary, newLead); //Primary
-            await this.form.fillTextByLabel('Number of Locations', tData.Additional_Information.NumberofLocations, newLead); //NumberofLocations__c
+            await this.form.selectValueFromDropdown('Product Interest', new_lead.Additional_Information.ProductInterest, newForm); //Product Interest
+            await this.form.fillTextByLabel('Current Generator(s)', new_lead.Additional_Information.CurrentGenerators, newForm); //CurrentGenerators__c
+            await this.form.fillTextByLabel('SIC Code', new_lead.Additional_Information.SICCode, newForm); //SICCode__c
+            await this.form.selectValueFromDropdown('Primary', new_lead.Additional_Information.Primary, newForm); //Primary
+            await this.form.fillTextByLabel('Number of Locations', new_lead.Additional_Information.NumberofLocations, newForm); //NumberofLocations__c
 
             //Description
-            await this.form.fillTextByLabel('Description', tData.Description, newLead);
-
-
-            
+            await this.form.fillTextByLabel('Description', new_lead.Description, newForm);
+        
+            console.log(`lead form has been successfully filled out.`);
         } catch (error) {
             console.error('Failed to fill new lead form:', error);
         }
@@ -149,7 +150,7 @@ export default class Sales {
             if (!leadName) {
                 throw new Error('Lead was not created successfully');
             }
-            console.log('Lead created successfully.');
+            console.log(`Lead created successfully, Lead Name: ${leadName}`);
         } catch (error) {
             console.error('Failed to verify lead creation:', error);
         }
@@ -170,5 +171,53 @@ export default class Sales {
         }
     }
 
+    async fillOpportunityForm() {
+        try {
+            const newForm = this.page.locator("//div[@class='record-layout-container']");
+            await newForm.waitFor({ state: 'visible' });
+
+            //Opportunity Information
+            await this.form.selectcheckBox('Private', new_opportunity.Opportunity_Information.Private, newForm);
+            await this.form.fillTextByLabel('*Opportunity Name', new_opportunity.Opportunity_Information.Name, newForm);
+            await this.form.selectFromLookUp('Account Name',new_opportunity.Opportunity_Information.Account, 0, newForm)
+            await this.form.selectValueFromDropdown('Type', new_opportunity.Opportunity_Information.Type, newForm); 
+            await this.form.selectValueFromDropdown('Lead Source', new_opportunity.Opportunity_Information.LeadSource, newForm);
+            await this.form.fillTextByLabel('Amount', new_opportunity.Opportunity_Information.Amount, newForm);
+            await this.form.fillTextByLabel('*Close Date', new_opportunity.Opportunity_Information.CloseDate, newForm);
+            await this.form.fillTextByLabel('Next Step', new_opportunity.Opportunity_Information.NextStep, newForm );
+            await this.form.fillTextByLabel('Probability (%)', new_opportunity.Opportunity_Information.Probability, newForm );
+            await this.form.selectValueFromDropdown('Stage', new_opportunity.Opportunity_Information.StageName, newForm);
+            await this.form.selectFromLookUp('Primary Campaign Source',new_opportunity.Opportunity_Information.CampaignId, 1, newForm)
+
+            //Additional Information
+            await this.form.fillTextByLabel('Order Number', new_opportunity.Additional_Information.OrderNumber__c, newForm);
+            await this.form.fillTextByLabel('Main Competitor(s)', new_opportunity.Additional_Information.CurrentGenerators__c, newForm);
+            await this.form.fillTextByLabel('Current Generator(s)', new_opportunity.Additional_Information.CurrentGenerators__c, newForm);
+            await this.form.selectValueFromDropdown('Delivery/Installation Status', new_opportunity.Additional_Information.DeliveryInstallationStatus__c, newForm);
+            await this.form.fillTextByLabel('Tracking Number', new_opportunity.Additional_Information.TrackingNumber__c, newForm);
+
+            //description
+            await this.form.fillTextByLabel('Description', new_opportunity.Description, newForm);
+
+            console.log(`Opportunity form has been successfully filled out.`);
+        } catch (error) {
+            console.error('Failed to fill opportunity form:', error);
+        }
+    }
+
+    async verifyOpportunityCreated() {
+        try {
+            //const successMessage = this.getToastMessage();
+            //console.log(await successMessage);
+            const optyName = await this.page.locator("lightning-formatted-text[slot='primaryField']").textContent();
+            if (!optyName) {
+                throw new Error('Lead was not created successfully');
+            }
+            console.log(`Lead created successfully, Opportunity Name: ${optyName}`);
+        } catch (error) {
+            console.error('Failed to verify lead creation:', error);
+        }
+        
+    }
 
 }

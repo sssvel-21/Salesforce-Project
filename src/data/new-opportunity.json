@@ -1,0 +1,29 @@
+{
+    "Opportunity_Information": {
+        "Name": "Test",
+        "Private": true,
+        "Account":"Dune",
+        "Type_Options": ["--None--","Existing Customer - Upgrade", "Existing Customer - Replacement", "Existing Customer - Downgrade", "New Customer"   ],  
+        "Type":"New Customer",
+        "LeadSource_Options": ["--None--", "Web", "Phone Inquiry", "Partner Referral", "Purchased List", "Other"],
+        "LeadSource":"Web",
+        "Amount":"31489",
+        "CloseDate":"08/07/2025",
+        "NextStep":"",
+        "StageName_Options": [
+            "Prospecting", "Qualification", "Needs Analysis", "Value Proposition", "Id. Decision Makers",
+            "Perception Analysis", "Proposal/Price Quote", "Negotiation/Review", "Closed Won", "Closed Lost"],
+        "StageName":"Prospecting",
+        "Probability":"",
+        "CampaignId":"campaign"
+    },
+    "Additional_Information": {
+        "OrderNumber__c": "",
+        "CurrentGenerators__c": "",
+        "MainCompetitors__c": "Dona Data",
+        "DeliveryInstallationStatus_options":["--None--","In progress", "Yet to begin", "Completed"],
+        "DeliveryInstallationStatus__c":"In progress",
+        "TrackingNumber__c": "0123"
+    },
+    "Description": "" 
+}

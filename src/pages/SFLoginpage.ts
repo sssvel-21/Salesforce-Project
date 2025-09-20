@@ -16,13 +16,13 @@ export default class SFLoginpage {
      * @param password - The Salesforce password.
      * @returns Promise<void>
      */
-    async sfLogin(username: string, password: string) {
+    async sfLogin(username: string, password: string) :Promise<void> {
         await this.page.fill(this.usernameInput, username);
         await this.page.fill(this.passwordInput, password);
         await this.page.click(this.loginButton);
     }
 
-    async navigatetoLoginPage() {
+    async navigatetoLoginPage() :Promise<void> {
         // Navigate to the Salesforce login page
         await this.page.goto('/');
         console.log('Navigated to Salesforce login page.');

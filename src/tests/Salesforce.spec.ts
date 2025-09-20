@@ -9,7 +9,7 @@ test.beforeEach('Salesforce Login', async ({ page }) => {
   await loginpage.sfLogin(process.env.userId!, process.env.password!);
 });
 
-test.skip('Logout', async ({ page }) => {
+test.afterEach('Logout', async ({ page }) => {
   const homepage = new SFHomepage(page);
   await homepage.closeBrowser(); 
 });
@@ -17,26 +17,21 @@ test.skip('Logout', async ({ page }) => {
 test('Sales | New Lead', async ({ page }) => {
   const homepage = new SFHomepage(page);
   const sales = new Sales(page);
-
   await test.step('Verify user is on Home Page', async () => {
     await homepage.isLoggedIn();
   });
-
   await test.step('Navigate to Sales App', async () => {
     await homepage.navigateToApp('Sales');
     await homepage.verifyUserinApp('Sales');
   });
-
   await test.step('Navigate to Leads tab', async () => {
     await sales.navigateToTab('Leads');
   });
-
   await test.step('Create a New Lead' , async () => {
     await sales.clickButton('New');
     await sales.fillLeadForm();
     await sales.clickButton('Save');
   });
-
   await test.step('Verify New Lead is created', async () => {
     await sales.getToastMessage();
     await sales.verifyLeadCreated();
@@ -49,25 +44,44 @@ test('Sales | Lead Conversion', async ({ page }) => {
   await test.step('Verify user is on Home Page', async () => {
     await homepage.isLoggedIn();
   });
-
   await test.step('Navigate to Sales App', async () => {
     await homepage.navigateToApp('Sales');
     await homepage.verifyUserinApp('Sales');
   });
-
   await test.step('Navigate to Leads tab', async () => {
     await sales.navigateToTab('Leads');
   });
-
   await test.step('Select a Lead', async () => {
     await sales.selectLead();
   });
-
   await test.step('Convert Lead', async () => {
     await sales.convertLead();
   });
   await test.step('Verify Lead Conversion', async () => {
     await sales.verifyLeadConverted();
   });
+});
 
-})
+test('Sales | New Opportunity', async ({ page }) => {
+  const homepage = new SFHomepage(page);
+  const sales = new Sales(page);
+  await test.step('Verify user is on Home Page', async () => {
+    await homepage.isLoggedIn();
+  });
+  await test.step('Navigate to Sales App', async () => {
+    await homepage.navigateToApp('Sales');
+    await homepage.verifyUserinApp('Sales');
+  });
+  await test.step('Navigate to Opportunities tab', async () => {
+    await sales.navigateToTab('Opportunities');
+  });
+  await test.step('Create a New Opportunity', async () => {
+    await sales.clickButton('New');
+    await sales.fillOpportunityForm();
+     await sales.clickButton('Save');
+  });
+  await test.step('Verify New Opportunity is created', async () => {
+    await sales.getToastMessage();
+    await sales.verifyOpportunityCreated();
+  });
+});

@@ -2,8 +2,8 @@
     "Lead_Information": {
         "SalutationOptions": ["--None--", "Mr.", "Ms.", "Mrs.", "Dr.", "Prof."],
         "Salutation": "Ms.",
-        "FirstName": "first",
-        "LastName": "name", 
+        "FirstName": "name",
+        "LastName": "one", 
         "Company": "Company",
         "Title": "",
         "AnnualRevenue": "",
@@ -21,12 +21,12 @@
             "Machinery", "Manufacturing", "Media", "Not For Profit", "Recreation", "Retail", "Shipping", "Technology",
             "Telecommunications", "Transportation", "Utilities", "Other"
         ],
-        "Industry": "Government",
+        "Industry": "Manufacturing",
         "LeadStatusOptions": ["--None--", "Open - Not Contacted", "Working - Contacted", "Closed - Converted", "Closed - Not Converted"],
         "LeadStatus": "Open - Not Contacted",
         "RatingOptions": ["--None--", "Hot", "Warm", "Cold"],
         "Rating": "--None--",
-        "NumberOfEmployees": "4"
+        "NumberOfEmployees": "3"
     },
     "Additional_Information": {
         "ProductInterestOptions": ["--None--", "GC1000 series", "GC5000 series", "GC3000 series"],

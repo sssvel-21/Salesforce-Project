@@ -1,5 +1,5 @@
 {
-    "Name" : "Nick Kicks",
+    "Name" : "",
     "ConvertOptions": ["Open - Not Contacted", "Working - Contacted", "Converted", "Closed - Not Converted"],
-    "ConvertStatus": "Converted"
+    "ConvertStatus": "Closed - Not Converted"
 }

@@ -19,7 +19,7 @@ export default class SFHomepage {
 
     }
 
-    async navigateToApp(appName: string) {
+    async navigateToApp(appName: string) :Promise<void> {
         const appLauncher =  this.page.getByRole('button', { name: 'App Launcher' });
         try {
             if (!(await appLauncher.isVisible())) {
@@ -36,7 +36,7 @@ export default class SFHomepage {
         }
     }
 
-    async verifyUserinApp(appName: string) {
+    async verifyUserinApp(appName: string) :Promise<void>{
         try {
             const inApp = await this.page.locator('h1 span').first().textContent({ timeout: 5000 });
             if (inApp?.trim() !== appName) {
